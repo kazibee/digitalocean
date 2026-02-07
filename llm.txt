@@ -1,0 +1,45 @@
+Tool: digitalocean
+Package: @kazibee/digitalocean
+
+Use this tool for DigitalOcean cloud management.
+
+Auth requirements
+- DIGITALOCEAN_API_TOKEN
+- DIGITALOCEAN_READ_ONLY=true (optional)
+
+Runtime note
+- Token is expected to be injected via `--env` (not interactive login).
+
+Safety behavior
+- Always check `isReadOnly()` before proposing destructive actions.
+- In read-only mode, do not call mutation methods.
+
+Typical intents to map
+- "account info" -> getAccount()
+- "infra catalog" -> listRegions/listSizes/listImages
+- "droplets" -> listDroplets/getDroplet/createDroplet/deleteDroplet
+- "domains" -> listDomains/createDomain/deleteDomain
+
+Code call examples
+```ts
+const ro = tools["digitalocean"].isReadOnly();
+const account = await tools["digitalocean"].getAccount();
+const regions = await tools["digitalocean"].listRegions();
+const droplets = await tools["digitalocean"].listDroplets(1, 20);
+
+if (!ro) {
+  const d = await tools["digitalocean"].createDroplet({
+    name: "web-1",
+    region: "nyc3",
+    size: "s-1vcpu-1gb",
+    image: "ubuntu-24-04-x64",
+    monitoring: true,
+  });
+
+  await tools["digitalocean"].deleteDroplet(d.id);
+}
+```
+
+Output behavior
+- Include IDs/names in responses for follow-up actions.
+- Explicitly state read-only status when relevant.
