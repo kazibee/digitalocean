@@ -4,28 +4,16 @@ DigitalOcean tool for kazibee. Supports account discovery, droplets, images, reg
 
 ## Install
 
-```bash
-kazibee install digitalocean github:kazibee/digitalocean
-```
-
-Install globally with `-g`:
-
-```bash
-kazibee install -g digitalocean github:kazibee/digitalocean
-```
+In the Kazibee desktop app, open **Settings → Tools → Add Extension → Install** and enter
+`github:kazibee/digitalocean`. The app clones the latest commit and records its SHA; use
+**Update** on the extension to move to a newer commit.
 
 ## Authentication
 
-Set environment variables:
+Set these in **Settings → Tools → digitalocean → Environment**:
 
 - `DIGITALOCEAN_API_TOKEN` (required)
 - `DIGITALOCEAN_READ_ONLY=true` (optional safety mode)
-
-Recommended with kazibee `--env`:
-
-```bash
-kazibee --env DIGITALOCEAN_API_TOKEN=do_xxx --env DIGITALOCEAN_READ_ONLY=true
-```
 
 ## Read-only Safety
 
